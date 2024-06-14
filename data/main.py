@@ -161,7 +161,7 @@ if __name__ == '__main__':
     session.commit()
     print("Coberturas inseridas")
 
-    total = 100 + 1
-    for i in range(total):
+    total = 10000
+    for i in range(total + 1):
         insert_cliente(coberturas, tipos_imovel)
-        print("Cliente " + str(i + 1) + "/" + str(total - 1))
+        print("Cliente " + str(i + 1) + "/" + str(total))
