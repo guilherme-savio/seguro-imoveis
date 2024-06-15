@@ -4,6 +4,7 @@ from sqlalchemy.orm import relationship, sessionmaker
 
 Base = declarative_base()
 
+
 class Cliente(Base):
     __tablename__ = 'cliente'
     id_cliente = Column(Integer, primary_key=True, autoincrement=True)
@@ -12,6 +13,7 @@ class Cliente(Base):
     endereco = Column(String(255))
     telefone = Column(String(255))
     email = Column(String(255))
+
 
 class Imovel(Base):
     __tablename__ = 'imovel'
@@ -26,6 +28,7 @@ class Imovel(Base):
     proprietario = relationship('Cliente', foreign_keys=[id_proprietario])
     inquilino = relationship('Cliente', foreign_keys=[id_inquilino])
 
+
 class Apolice(Base):
     __tablename__ = 'apolice'
     id_apolice = Column(Integer, primary_key=True, autoincrement=True)
@@ -35,17 +38,20 @@ class Apolice(Base):
     valor_apolice = Column(DECIMAL(12, 2))
     imovel = relationship('Imovel')
 
+
 class Cobertura(Base):
     __tablename__ = 'cobertura'
     id_cobertura = Column(Integer, primary_key=True, autoincrement=True)
     descricao = Column(String(255))
     valor = Column(DECIMAL(12, 2))
 
+
 apolice_cobertura = Table(
     'apolice_cobertura', Base.metadata,
     Column('id_apolice', Integer, ForeignKey('apolice.id_apolice')),
     Column('id_cobertura', Integer, ForeignKey('cobertura.id_cobertura'))
 )
+
 
 class Sinistro(Base):
     __tablename__ = 'sinistro'
@@ -56,6 +62,7 @@ class Sinistro(Base):
     valor_sinistro = Column(DECIMAL(12, 2))
     apolice = relationship('Apolice')
 
+
 class Pagamento(Base):
     __tablename__ = 'pagamento'
     id_pagamento = Column(Integer, primary_key=True, autoincrement=True)
@@ -63,6 +70,7 @@ class Pagamento(Base):
     dt_pagamento = Column(Date)
     valor_pagamento = Column(DECIMAL(12, 2))
     apolice = relationship('Apolice')
+
 
 class Avaliacao(Base):
     __tablename__ = 'avaliacao'
