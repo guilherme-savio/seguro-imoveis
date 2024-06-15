@@ -31,6 +31,8 @@ engine = create_engine(connection_url)
 Session = sessionmaker(bind=engine)
 session = Session()
 
+Base.metadata.create_all(engine)
+
 print("Conectado!")
 
 def insert_cliente(coberturas, tipos_imovel):
@@ -39,16 +41,23 @@ def insert_cliente(coberturas, tipos_imovel):
 
     cliente = Cliente(
         nome=name,
-        dt_nasc=fake.date_of_birth(minimum_age = 18),
+        dt_nasc=fake.date_of_birth(minimum_age=18),
         endereco=address,
         telefone=fake.phone_number(),
         email=name.replace(" ", "").lower() + "@" + fake.domain_name()
     )
 
     session.add(cliente)
-    session.commit()
+    session.flush()  # Flush to get the client ID without committing
 
-    for i in range(random.randint(1,5)):
+    imoveis = []
+    avaliacoes = []
+    apolices = []
+    sinistros = []
+    pagamentos = []
+    apolice_coberturas_entries = []
+
+    for _ in range(random.randint(1, 5)):
         valor_random = random.random()
         valor_imovel = valor_random * 1000000
         ano_construcao = fake.year()
@@ -56,87 +65,76 @@ def insert_cliente(coberturas, tipos_imovel):
         imovel = Imovel(
             id_proprietario=cliente.id_cliente,
             id_inquilino=cliente.id_cliente,
-            endereco=address if i == 0 else fake.address(),
-            tipo_imovel=get_random(tipos_imovel),
+            endereco=address if _ == 0 else fake.address(),
+            tipo_imovel=random.choice(tipos_imovel),
             valor_imovel=valor_imovel,
             area_imovel=random.random() * valor_random * 2500,
             ano_construcao=ano_construcao
         )
+        imoveis.append(imovel)
 
-        session.add(imovel)
-        session.commit()
+    session.bulk_save_objects(imoveis)
+    session.flush()
 
-        data_inicio = fake.date_between(date(int(ano_construcao), 1, 1), date.today())
+    for imovel in imoveis:
+        data_inicio = fake.date_between(date(int(imovel.ano_construcao), 1, 1), date.today())
         data_termino = fake.date_between(data_inicio, date(2050, 12, 31))
 
         avaliacao = Avaliacao(
             id_imovel=imovel.id_imovel,
             dt_avaliacao=data_inicio,
-            valor_avaliado=valor_imovel
+            valor_avaliado=imovel.valor_imovel
         )
-
-        session.add(avaliacao)
-        session.commit()
+        avaliacoes.append(avaliacao)
 
         apolice = Apolice(
             id_imovel=imovel.id_imovel,
             dt_inicio=data_inicio,
             dt_termino=data_termino
         )
+        apolices.append(apolice)
 
-        session.add(apolice)
-        session.commit()
+    session.bulk_save_objects(avaliacoes)
+    session.bulk_save_objects(apolices)
+    session.flush()
 
+    for apolice in apolices:
         valor_apolice = 0.0
-        coberturas_inseridas = []
-        for i in range(random.randint(1, 10)):
-            cobertura = get_random(coberturas)
+        coberturas_inseridas = random.sample(coberturas, random.randint(1, 10))
 
-            while coberturas_inseridas.__contains__(cobertura):
-                cobertura = get_random(coberturas)
-
-            session.execute(
-                apolice_cobertura.insert().values(id_apolice=apolice.id_apolice, id_cobertura=cobertura.id_cobertura)
-            )
-            session.commit()
-
-            coberturas_inseridas.append(cobertura)
+        for cobertura in coberturas_inseridas:
+            apolice_coberturas_entries.append({
+                'id_apolice': apolice.id_apolice,
+                'id_cobertura': cobertura.id_cobertura
+            })
             valor_apolice += float(cobertura.valor)
-        
-        apolice.valor_apolice = (valor_apolice * (valor_imovel * 0.01)) / 2
-        session.commit()
 
-        for i in range(random.randint(0,5)):
-            cobertura_utilizada = get_random(coberturas_inseridas)
+        apolice.valor_apolice = (valor_apolice * (imovel.valor_imovel * 0.01)) / 2
 
+        for _ in range(random.randint(0, 5)):
+            cobertura_utilizada = random.choice(coberturas_inseridas)
             sinistro = Sinistro(
                 id_apolice=apolice.id_apolice,
-                dt_sinistro=fake.date_between(data_inicio, data_termino),
+                dt_sinistro=fake.date_between(apolice.dt_inicio, apolice.dt_termino),
                 descricao=cobertura_utilizada.descricao,
                 valor_sinistro=cobertura_utilizada.valor
             )
+            sinistros.append(sinistro)
 
-            session.add(sinistro)
-            session.commit()
-
-        dt_pagamento = data_inicio
+        dt_pagamento = apolice.dt_inicio
         while dt_pagamento <= date.today():
             pagamento = Pagamento(
                 id_apolice=apolice.id_apolice,
                 dt_pagamento=dt_pagamento,
                 valor_pagamento=valor_apolice
             )
+            pagamentos.append(pagamento)
+            dt_pagamento = date(dt_pagamento.year + (dt_pagamento.month // 12), (dt_pagamento.month % 12) + 1, 5)
 
-            session.add(pagamento)
-            session.commit()
-
-            if (dt_pagamento.month == 12):
-                dt_pagamento = date(dt_pagamento.year + 1, 1, 5)
-            else:
-                dt_pagamento = date(dt_pagamento.year, dt_pagamento.month + 1, 5)
-
-def get_random(list):
-    return list[random.randint(0, len(list) - 1)]
+    session.bulk_save_objects(sinistros)
+    session.bulk_save_objects(pagamentos)
+    session.execute(apolice_cobertura.insert(), apolice_coberturas_entries)
+    session.commit()
 
 if __name__ == '__main__':
     tipos_imovel = [
@@ -164,4 +162,4 @@ if __name__ == '__main__':
     total = 10000
     for i in range(total + 1):
         insert_cliente(coberturas, tipos_imovel)
-        print("Cliente " + str(i + 1) + "/" + str(total))
+        print(f"Cliente {i + 1}/{total}")
