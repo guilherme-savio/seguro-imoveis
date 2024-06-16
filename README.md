@@ -87,6 +87,17 @@ Mencione todos aqueles que ajudaram a levantar o projeto desde o seu início
 
 Você também pode ver a lista de todos os [colaboradores](https://github.com/usuario/projeto/colaboradores) que participaram deste projeto.
 
+### Modelo Físico:
+Utilizando [dbdiagram](https://dbdiagram.io/), confira o nosso [Modelo Físico Dimensional](https://dbdiagram.io/dModelo-Fisico-Dimensional-666f5c5ea179551be603c482).
+<div>
+    <img src="modelo_fisico/modelo_fisico_dimensional.png" style="heigh: 400px; width: 600px;">
+</div>
+
+Confira também nosso [Modelo Físico Relacional](https://dbdiagram.io/d/649ae6df02bd1c4a5e2406ca).
+<div>
+    <img src="modelo_fisico/modelo_fisico_relacional.png" style="heigh: 400px; width: 600px;">
+</div>
+
 ## Licença
 
 Este projeto está sob a licença (sua licença) - veja o arquivo [LICENSE](https://github.com/jlsilva01/projeto-ed-satc/blob/main/LICENSE) para detalhes.
