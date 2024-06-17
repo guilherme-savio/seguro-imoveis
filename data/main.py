@@ -1,5 +1,6 @@
+import asyncio
 from database import Base, apolice_cobertura, Apolice, Avaliacao, Cliente, Cobertura, Imovel, Pagamento, Sinistro
-from datetime import date
+from datetime import date, datetime
 from faker import Faker
 import os
 import random
@@ -7,161 +8,210 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.engine import URL
 
-
 fake = Faker('pt_BR')
+today = date.today()
 
-connection_url = URL.create(
-    "mssql+pyodbc",
-    username=os.getenv("SQL_USERNAME"),
-    password=os.getenv("SQL_PASSWORD"),
-    host=os.getenv("SQL_SERVER"),
-    port=1433,
-    database=os.getenv("SQL_DATABASE"),
-    query={
-        "driver": "ODBC Driver 18 for SQL Server",
-        "Encrypt": "yes",
-        "TrustServerCertificate": "yes",
-    },
-)
 
-print(connection_url)
+def insert_clientes(session, total):
+    clientes = []
 
-engine = create_engine(connection_url)
+    for i in range(total):
+        name = fake.name()
+        address = fake.address()
 
-Session = sessionmaker(bind=engine)
-session = Session()
+        clientes.append(Cliente(
+            nome=name,
+            dt_nasc=fake.date_of_birth(minimum_age=18),
+            endereco=address,
+            telefone=fake.phone_number(),
+            email=name.replace(" ", "").lower() + "@" + fake.domain_name()
+        ))
 
-print("Conectado!")
+    session.add_all(clientes)
+    session.flush()
 
-def insert_cliente(coberturas, tipos_imovel):
-    name = fake.name()
-    address = fake.address()
+    return clientes
 
-    cliente = Cliente(
-        nome=name,
-        dt_nasc=fake.date_of_birth(minimum_age = 18),
-        endereco=address,
-        telefone=fake.phone_number(),
-        email=name.replace(" ", "").lower() + "@" + fake.domain_name()
-    )
 
-    session.add(cliente)
-    session.commit()
+def insert_imoveis(session, clientes, tipos_imovel):
+    imoveis = []
 
-    for i in range(random.randint(1,5)):
-        valor_random = random.random()
-        valor_imovel = valor_random * 1000000
-        ano_construcao = fake.year()
+    for cliente in clientes:
+        for _ in range(randint_min(1, 4)):
+            valor_random = random.random()
+            valor_imovel = valor_random * 1000000
+            ano_construcao = int(fake.date_between(date(2010, 1, 1), today).year)
 
-        imovel = Imovel(
-            id_proprietario=cliente.id_cliente,
-            id_inquilino=cliente.id_cliente,
-            endereco=address if i == 0 else fake.address(),
-            tipo_imovel=get_random(tipos_imovel),
-            valor_imovel=valor_imovel,
-            area_imovel=random.random() * valor_random * 2500,
-            ano_construcao=ano_construcao
-        )
+            imoveis.append(Imovel(
+                id_proprietario=cliente.id_cliente,
+                id_inquilino=cliente.id_cliente,
+                endereco=cliente.endereco if _ == 0 else fake.address(),
+                tipo_imovel=random.choice(tipos_imovel),
+                valor_imovel=valor_imovel,
+                area_imovel=random.random() * valor_random * 2500,
+                ano_construcao=ano_construcao
+            ))
 
-        session.add(imovel)
-        session.commit()
+    session.add_all(imoveis)
+    session.flush()
 
-        data_inicio = fake.date_between(date(int(ano_construcao), 1, 1), date.today())
-        data_termino = fake.date_between(data_inicio, date(2050, 12, 31))
+    return imoveis
 
-        avaliacao = Avaliacao(
+
+def insert_avaliacoes_apolices(session, imoveis):
+    avaliacoes = []
+    apolices = []
+
+    for imovel in imoveis:
+        data_inicio = fake.date_between(date(imovel.ano_construcao, 1, 1), date.today())
+
+        avaliacoes.append(Avaliacao(
             id_imovel=imovel.id_imovel,
             dt_avaliacao=data_inicio,
-            valor_avaliado=valor_imovel
-        )
+            valor_avaliado=imovel.valor_imovel
+        ))
 
-        session.add(avaliacao)
-        session.commit()
-
-        apolice = Apolice(
+        apolices.append(Apolice(
             id_imovel=imovel.id_imovel,
             dt_inicio=data_inicio,
-            dt_termino=data_termino
-        )
+            dt_termino=fake.date_between(data_inicio, date(2050, 12, 31))
+        ))
 
-        session.add(apolice)
-        session.commit()
+    session.add_all(avaliacoes)
+    session.add_all(apolices)
+    session.flush()
 
-        valor_apolice = 0.0
-        coberturas_inseridas = []
-        for i in range(random.randint(1, 10)):
-            cobertura = get_random(coberturas)
+    return apolices
 
-            while coberturas_inseridas.__contains__(cobertura):
-                cobertura = get_random(coberturas)
 
-            session.execute(
-                apolice_cobertura.insert().values(id_apolice=apolice.id_apolice, id_cobertura=cobertura.id_cobertura)
-            )
-            session.commit()
+async def insert_sinistros_pagamentos_apolices_coberturas(session, apolices, imoveis, coberturas):
+    sinistros = []
+    pagamentos = []
+    apolice_coberturas = []
 
-            coberturas_inseridas.append(cobertura)
-            valor_apolice += float(cobertura.valor)
-        
-        apolice.valor_apolice = (valor_apolice * (valor_imovel * 0.01)) / 2
-        session.commit()
+    i = 0
+    for apolice in apolices:
+        coberturas_inseridas = random.sample(coberturas, randint_min(1, 10))
+        await insert_apolice_coberturas(apolice, apolice_coberturas, coberturas_inseridas, imoveis, i)
+        await asyncio.gather(
+            insert_sinistros(apolice, sinistros, coberturas_inseridas),
+            insert_pagamentos(apolice, pagamentos))
+        i += 1
 
-        for i in range(random.randint(0,5)):
-            cobertura_utilizada = get_random(coberturas_inseridas)
+    session.add_all(sinistros)
+    session.add_all(pagamentos)
+    session.execute(apolice_cobertura.insert(), apolice_coberturas)
+    session.flush()
 
-            sinistro = Sinistro(
-                id_apolice=apolice.id_apolice,
-                dt_sinistro=fake.date_between(data_inicio, data_termino),
-                descricao=cobertura_utilizada.descricao,
-                valor_sinistro=cobertura_utilizada.valor
-            )
+    return sinistros, pagamentos, apolice_coberturas
 
-            session.add(sinistro)
-            session.commit()
 
-        dt_pagamento = data_inicio
-        while dt_pagamento <= date.today():
-            pagamento = Pagamento(
-                id_apolice=apolice.id_apolice,
-                dt_pagamento=dt_pagamento,
-                valor_pagamento=valor_apolice
-            )
+async def insert_apolice_coberturas(apolice, apolice_coberturas, coberturas_inseridas, imoveis, i):
+    valor_apolice = 0.0
 
-            session.add(pagamento)
-            session.commit()
+    for cobertura in coberturas_inseridas:
+        apolice_coberturas.append({
+            'id_apolice': apolice.id_apolice,
+            'id_cobertura': cobertura.id_cobertura
+        })
+        valor_apolice += float(cobertura.valor)
 
-            if (dt_pagamento.month == 12):
-                dt_pagamento = date(dt_pagamento.year + 1, 1, 5)
-            else:
-                dt_pagamento = date(dt_pagamento.year, dt_pagamento.month + 1, 5)
+    apolice.valor_apolice = (valor_apolice * (imoveis[i].valor_imovel * 0.0001)) / 2
 
-def get_random(list):
-    return list[random.randint(0, len(list) - 1)]
 
-if __name__ == '__main__':
+async def insert_sinistros(apolice, sinistros, coberturas_inseridas):
+    for _ in range(randint_min(0, 4)):
+        cobertura_utilizada = random.choice(coberturas_inseridas)
+        sinistros.append(Sinistro(
+            id_apolice=apolice.id_apolice,
+            dt_sinistro=fake.date_between(apolice.dt_inicio, apolice.dt_termino),
+            descricao=cobertura_utilizada.descricao,
+            valor_sinistro=cobertura_utilizada.valor
+        ))
+
+
+async def insert_pagamentos(apolice, pagamentos):
+    dt_pagamento = apolice.dt_inicio
+    while dt_pagamento <= today:
+        pagamentos.append(Pagamento(
+            id_apolice=apolice.id_apolice,
+            dt_pagamento=dt_pagamento,
+            valor_pagamento=apolice.valor_apolice
+        ))
+        dt_pagamento = date(dt_pagamento.year + (dt_pagamento.month // 12), (dt_pagamento.month % 12) + 1, 5)
+
+
+def randint_min(a, b):
+    return min(random.randint(a, b), random.randint(a, b))
+
+
+def log(message):
+    print(f"{datetime.now()} - {message}")
+
+
+async def main():
+    connection_url = URL.create(
+        "mssql+pyodbc",
+        username=os.getenv("SQL_USERNAME"),
+        password=os.getenv("SQL_PASSWORD"),
+        host=os.getenv("SQL_SERVER"),
+        port=1433,
+        database=os.getenv("SQL_DATABASE"),
+        query={
+            "driver": "ODBC Driver 18 for SQL Server",
+            "Encrypt": "yes",
+            "TrustServerCertificate": "yes",
+        }
+    )
+
+    engine = create_engine(connection_url)
+    Session = sessionmaker(bind=engine)
+
+    Base.metadata.create_all(engine)
+
+    log("Conectado!")
+
     tipos_imovel = [
         "Casa",
         "Apartamento"
     ]
 
     coberturas = [
-        Cobertura(descricao="Incêndio", valor=50000.00),
-        Cobertura(descricao="Roubo", valor=10000.00),
-        Cobertura(descricao="Danos Elétricos", valor=15000.00),
-        Cobertura(descricao="Vendaval", valor=20000.00),
-        Cobertura(descricao="Desmoronamento", valor=30000.00),
-        Cobertura(descricao="Responsabilidade Civil", valor=25000.00),
-        Cobertura(descricao="Perda de Aluguel", valor=1000.00),
-        Cobertura(descricao="Inundação", valor=35000.00),
-        Cobertura(descricao="Furto", valor=8000.00),
-        Cobertura(descricao="Desastres Naturais", valor=40000.00),
+        Cobertura(descricao="Incêndio", valor=500.00),
+        Cobertura(descricao="Roubo", valor=100.00),
+        Cobertura(descricao="Danos Elétricos", valor=100.00),
+        Cobertura(descricao="Vendaval", valor=200.00),
+        Cobertura(descricao="Desmoronamento", valor=300.00),
+        Cobertura(descricao="Responsabilidade Civil", valor=200.00),
+        Cobertura(descricao="Perda de Aluguel", valor=10.00),
+        Cobertura(descricao="Inundação", valor=350.00),
+        Cobertura(descricao="Furto", valor=80.00),
+        Cobertura(descricao="Desastres Naturais", valor=400.00),
     ]
 
+    session = Session()
     session.add_all(coberturas)
     session.commit()
-    print("Coberturas inseridas")
+    log(f"Coberturas inseridas.")
 
-    total = 10000
-    for i in range(total + 1):
-        insert_cliente(coberturas, tipos_imovel)
-        print("Cliente " + str(i + 1) + "/" + str(total))
+    total_clients = 1000
+
+    clientes = insert_clientes(session, total_clients)
+    log(f"{len(clientes)} clientes inseridos.")
+
+    imoveis = insert_imoveis(session, clientes, tipos_imovel)
+    log(f"{len(imoveis)} imóveis inseridos.")
+
+    apolices = insert_avaliacoes_apolices(session, imoveis)
+    log(f"{len(apolices)} apólices e avaliações inseridas.")
+
+    sinistros, pagamentos, apolice_coberturas = await insert_sinistros_pagamentos_apolices_coberturas(session, apolices, imoveis, coberturas)
+    log(f"{len(sinistros)} sinistros, {len(pagamentos)} pagamentos, {len(apolice_coberturas)} apolice_coberturas inseridos.")
+
+    session.commit()
+    log("Todos registros salvos.")
+
+
+if __name__ == '__main__':
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())
