@@ -1,17 +1,17 @@
-# Welcome to MkDocs
+# Introdução
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+Esse projeto foi desenvolvido como trabalho final para a disciplina de Engenharia de Dados
 
-## Commands
+## Começando 🚀
+Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+### Pré-requisitos
+---
 
-## Project layout
+### Instalação
+---
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+
+## Ferramentas utilizadas
+---
+
