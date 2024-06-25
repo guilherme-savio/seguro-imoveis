@@ -28,7 +28,7 @@ password = os.getenv("SQL_PASSWORD")
 password = quote_plus(password)
 
 # Conectar ao SQL Server
-conn_str = f"mssql+pyodbc://{username}:{password}@{server}/{database}?driver=ODBC+Driver+17+for+SQL+Server"
+conn_str = f"mssql+pyodbc://{username}:{password}@{server}/{database}?driver=ODBC+Driver+18+for+SQL+Server"
 
 # Criar a engine do SQLAlchemy
 engine = create_engine(conn_str)
