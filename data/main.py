@@ -194,7 +194,7 @@ async def main():
     session.commit()
     log(f"Coberturas inseridas.")
 
-    total_clients = 10000
+    total_clients = 100
 
     clientes = insert_clientes(session, total_clients)
     log(f"{len(clientes)} clientes inseridos.")
