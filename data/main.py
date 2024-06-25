@@ -7,6 +7,9 @@ import random
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.engine import URL
+from dotenv import load_dotenv
+
+load_dotenv()
 
 fake = Faker('pt_BR')
 today = date.today()
