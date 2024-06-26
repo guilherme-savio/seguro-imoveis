@@ -1,1 +1,32 @@
-site_name: Projeto SATC Data Lake
+site_name: Seguradora de imóveis
+repo_url: https://github.com/guilherme-savio/seguro-imoveis
+
+nav:
+  - Home: index.md
+  - Arquitetura Postgres: postgres.md
+  - Arquitetura ADLS: adls.md
+  - ETL: etl.md
+  - Airflow: airflow.md
+  - Autores: contributors.md
+
+theme:
+  name: material
+  user_color_mode_toggle: true
+  icon:
+    logo: fontawesome/solid/house-lock
+    favicon: fontawesome/solid/house-lock
+
+
+  palette:
+  - scheme: default
+    primary: light green
+    toggle:
+      icon: material/weather-night
+      name: Modo Escuro
+
+  - scheme: slate
+    primary: light green
+    toggle:
+      icon: material/brightness-7
+      name: Modo Claro
+language: pt-BR
