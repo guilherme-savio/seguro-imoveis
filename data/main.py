@@ -193,7 +193,12 @@ async def main():
     ]
 
     session = Session()
-    session.add_all(coberturas)
+
+    for cobertura in coberturas:
+        existing_cobertura = session.query(Cobertura).filter_by(descricao=cobertura.descricao).first()
+        if not existing_cobertura:
+            session.add(cobertura)
+
     session.commit()
     log(f"Coberturas inseridas.")
 
