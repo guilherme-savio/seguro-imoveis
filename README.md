@@ -12,7 +12,7 @@ Consulte **[Implantação](#-implanta%C3%A7%C3%A3o)** para saber como implantar 
 
 ## Arquitetura Utilizada
 
-![image](https://github.com/guilherme-savio/seguro-imoveis/blob/main/assets/pipeline_arch.png)
+![image](docs/assets/pipeline_arch.png)
 
 
 ## Pré-requisitos
@@ -33,7 +33,7 @@ Consulte **[Implantação](#-implanta%C3%A7%C3%A3o)** para saber como implantar 
 2. Com sua conta Microsoft/Azure criada e apta para uso dos recursos pagos, no <a href="https://portal.azure.com/">```Portal Azure```</a> crie um workspace Azure Databricks seguindo a <a href="https://learn.microsoft.com/en-us/azure/databricks/getting-started/">```documentação```</a> fornecida pela Microsoft. Durante a execução deste processo, você irá criar um ```resource group```. Salve o nome informado no ```resource group``` pois ele será utilizado logo em seguida.
 3. Com o ```Terraform``` instalado e o ```resource group``` em mãos, no arquivo <a href="https://github.com/guilherme-savio/seguro-imoveis/blob/main/iac/variables.tf">```/iac/variables.tf```</a> modifique a seguinte váriavel adicionando o ```resource group``` que você criou previamente.
 
-![image](https://github.com/guilherme-savio/seguro-imoveis/blob/main/assets/readme/terraform_var.png)
+![image](docs/assets/readme/terraform_var.png)
 
 4. Nesta etapa, iremos iniciar o deploy do nosso ambiente cloud. Após alterar a variável no último passo, acesse a pasta ```/iac``` e execute os seguintes comandos:
    ```bash
@@ -100,14 +100,14 @@ Mencione todos aqueles que ajudaram a levantar o projeto desde o seu início
 Você também pode ver a lista de todos os [colaboradores](https://github.com/guilherme-savio/seguro-imoveis/graphs/contributors) que participaram deste projeto.
 
 ### Modelo Físico:
-Utilizando [dbdiagram](https://dbdiagram.io/), confira o nosso [Modelo Físico Dimensional](https://github.com/guilherme-savio/seguro-imoveis/blob/main/assets/modelo_fisico_relacional.png).
+Utilizando [dbdiagram](https://dbdiagram.io/), confira o nosso [Modelo Físico Dimensional](docs/assets/modelo_fisico_relacional.png).
 <div>
-    <img src="https://github.com/guilherme-savio/seguro-imoveis/blob/main/assets/modelo_fisico_dimensional.png" style="heigh: 400px; width: 600px;">
+    <img src="docs/assets/modelo_fisico_dimensional.png" style="heigh: 400px; width: 600px;">
 </div>
 
-Confira também nosso [Modelo Físico Relacional](https://github.com/guilherme-savio/seguro-imoveis/blob/main/assets/modelo_fisico_relacional.png).
+Confira também nosso [Modelo Físico Relacional](docs/assets/modelo_fisico_relacional.png).
 <div>
-    <img src="https://github.com/guilherme-savio/seguro-imoveis/blob/main/assets/modelo_fisico_relacional.png" style="heigh: 400px; width: 600px;">
+    <img src="docs/assets/modelo_fisico_relacional.png" style="heigh: 400px; width: 600px;">
 </div>
 
 

@@ -5,6 +5,7 @@ nav:
   - Home: index.md
   - Arquitetura Postgres: postgres.md
   - Arquitetura ADLS: adls.md
+  - Modelo Relacional: relational.md
   - ETL: etl.md
   - Airflow: airflow.md
   - Autores: contributors.md
