@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../obt/">
+        <link rel="prev" href="../etl/">
       
       
-        <link rel="next" href="../dataviz/">
+        <link rel="next" href="../contributors/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -20,7 +20,7 @@
     
     
       
-        <title>ETL - Seguradora de imóveis</title>
+        <title>Data Viz - Seguradora de imóveis</title>
       
     
     
@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#etl" class="md-skip">
+        <a href="#dashboard-no-power-bi-sobre-seguro-de-imoveis" class="md-skip">
           Skip to content
         </a>
       
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ETL
+              Data Viz
             
           </span>
         </div>
@@ -328,6 +328,26 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../etl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ETL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -340,28 +360,18 @@
         
       
       
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
   
   <span class="md-ellipsis">
-    ETL
+    Data Viz
   </span>
   
 
-      </a>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../dataviz/" class="md-nav__link">
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -370,6 +380,44 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#consumo-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consumo de Dados
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kpis-desenvolvidas" class="md-nav__link">
+    <span class="md-ellipsis">
+      KPIs Desenvolvidas
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -414,6 +462,32 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#consumo-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consumo de Dados
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kpis-desenvolvidas" class="md-nav__link">
+    <span class="md-ellipsis">
+      KPIs Desenvolvidas
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -430,7 +504,26 @@
   
 
 
-<h1 id="etl">ETL</h1>
+<h1 id="dashboard-no-power-bi-sobre-seguro-de-imoveis">Dashboard no Power BI sobre Seguro de Imóveis</h1>
+<h2 id="consumo-de-dados">Consumo de Dados</h2>
+<p>O dashboard consome os dados de uma OBT (Operational Data Store) através de um arquivo parquet adicionado na camada gold do ETL (Extract, Transform, Load) do projeto. Esse arquivo parquet contém os dados consolidados e otimizados para análise no Power BI. A camada gold do ETL é responsável por armazenar os dados de forma estruturada e pronta para serem consumidos pelo dashboard.</p>
+<p>Essa abordagem permite que o dashboard tenha acesso aos dados atualizados e de alta qualidade, garantindo uma visualização precisa e confiável das informações relacionadas a seguros de imóveis.</p>
+<h2 id="kpis-desenvolvidas">KPIs Desenvolvidas</h2>
+<p>Aqui estão as KPIs que foram desenvolvidas para análise dos dados:</p>
+<ul>
+<li>Total de Valor de Sinistros</li>
+<li>Custos Operacionais</li>
+<li>Lucro (Lucro)</li>
+<li>Valor Total das Apólices</li>
+<li>Número de Apólices Vendidas</li>
+<li>Valor Médio de Prêmio</li>
+<li>Número de Sinistros</li>
+<li>Total de Ativos</li>
+<li>Total de Passivos</li>
+<li>Número Total de Imóveis</li>
+</ul>
+<p>Essas KPIs fornecem insights importantes sobre o desempenho e a saúde do negócio de seguros de imóveis.</p>
+<p><img alt="image" src="../assets/dashboard.png" /></p>
 
 
 
