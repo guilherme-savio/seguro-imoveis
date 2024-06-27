@@ -1,8 +1,8 @@
-# Título do projeto
+# Seguradora de Imóveis
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+<!-- [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) -->
 
-Um parágrafo da descrição do projeto vai aqui
+O projeto final de engenharia de dados entitulado Seguradora de Imóveis, desenvolvido pelos alunos Bruno Venturini, Eduardo Freitas, Gabriel Della, Gabriel Ferreira, Guilherme Savio, Higor Goulart e Sofia Martins, busca aplicar e aprofundar os fundamentos e práticas de engenharia de dados adquiridos ao longo do semestre.
 
 ## Começando
 
@@ -82,8 +82,13 @@ Fale sobre a versão e o controle de versões para o projeto. Para as versões d
 
 Mencione todos aqueles que ajudaram a levantar o projeto desde o seu início
 
-* **Aluno 1** - *Trabalho Inicial* - [(https://github.com/linkParaPerfil)](https://github.com/linkParaPerfil)
-* **Aluno 2** - *Documentação* - [https://github.com/linkParaPerfil](https://github.com/linkParaPerfil)
+* **Bruno Venturini** - *ETL* - [https://github.com/linkParaPerfil](https://github.com/linkParaPerfil)
+* **Eduardo Freitas** - *Workflow* - [https://github.com/linkParaPerfil](https://github.com/dufrtss)
+* **Gabriel Della** - *Integração* - [https://github.com/linkParaPerfil](https://github.com/linkParaPerfil)
+* **Gabriel Ferreira** - *Dashboard* - [(https://github.com/linkParaPerfil)](https://github.com/dufrtss)
+* **Guilherme Savio** - *Arquitetura* - [https://github.com/linkParaPerfil](https://github.com/linkParaPerfil)
+* **Higor Goulart** - *Ingestão de dados* - [https://github.com/linkParaPerfil](https://github.com/linkParaPerfil)
+* **Sofia Martins** - *Documentação* - [https://github.com/linkParaPerfil](https://github.com/linkParaPerfil)
 
 Você também pode ver a lista de todos os [colaboradores](https://github.com/usuario/projeto/colaboradores) que participaram deste projeto.
 
