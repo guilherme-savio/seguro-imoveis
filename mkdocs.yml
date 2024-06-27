@@ -7,8 +7,8 @@ nav:
   - Modelo Relacional: relational.md
   - Camada Gold - One Big table: obt.md
   - ETL: etl.md
-  - Autores: contributors.md
   - Data Viz: dataviz.md
+  - Autores: contributors.md
 
 markdown_extensions:
   - pymdownx.highlight:
