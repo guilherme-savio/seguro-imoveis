@@ -11,9 +11,12 @@ Essas instruções permitirão que você obtenha uma cópia do projeto em opera�
 * [Conta Microsoft/Azure com assinatura paga](https://azure.microsoft.com/pt-br/free/databricks)
 * [Python](https://www.python.org/downloads/)
 
+!!! tip "Conta Microsoft/Azure"
+    Existe a possibilidade de adquirir 14 dias gratuitos dos serviços premium ofertados pela Microsoft/Azure
+    Verifique a disponibilidade no site
+
 ### Instalação
 ---
-
 1. Clone o repositório
 
     ``` bash
