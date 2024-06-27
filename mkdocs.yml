@@ -6,8 +6,8 @@ nav:
   - Arquitetura Postgres: postgres.md
   - Arquitetura ADLS: adls.md
   - Modelo Relacional: relational.md
+  - Camada Gold - One Big table: obt.md
   - ETL: etl.md
-  - Airflow: airflow.md
   - Autores: contributors.md
 
 theme:
