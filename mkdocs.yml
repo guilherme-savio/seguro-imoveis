@@ -5,7 +5,9 @@ nav:
   - Home: index.md
   - Arquitetura de Solução: arquitetura.md
   - Modelo Relacional: relational.md
-  - ETL: etl.md
+  - Camada Bronze: bronze.md
+  - Camada Silver: silver.md
+  - Camada Gold - One Big table: obt.md
   - Autores: contributors.md
 
 markdown_extensions:
