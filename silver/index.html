@@ -9,7 +9,7 @@
       
       
       
-        <link rel="prev" href="../etl/">
+        <link rel="prev" href="../bronze/">
       
       
         <link rel="next" href="../contributors/">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Data Viz - Seguradora de imóveis</title>
+        <title>Camada Silver - Seguradora de imóveis</title>
       
     
     
@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#dashboard-no-power-bi-sobre-seguro-de-imoveis" class="md-skip">
+        <a href="#documentacao-da-camada-silver" class="md-skip">
           Skip to content
         </a>
       
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Data Viz
+              Camada Silver
             
           </span>
         </div>
@@ -311,31 +311,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../obt/" class="md-nav__link">
+      <a href="../bronze/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Camada Gold - One Big table
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../etl/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    ETL
+    Camada Bronze
   </span>
   
 
@@ -364,7 +344,7 @@
           
   
   <span class="md-ellipsis">
-    Data Viz
+    Camada Silver
   </span>
   
 
@@ -375,7 +355,7 @@
         
   
   <span class="md-ellipsis">
-    Data Viz
+    Camada Silver
   </span>
   
 
@@ -397,20 +377,50 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#consumo-de-dados" class="md-nav__link">
+  <a href="#transformacoes-da-camada-silver" class="md-nav__link">
     <span class="md-ellipsis">
-      Consumo de Dados
+      Transformações da Camada Silver
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transformações da Camada Silver">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transformacao-de-cliente" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transformação de Cliente
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transformação de Cliente">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Código
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#kpis-desenvolvidas" class="md-nav__link">
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tabela-de-conversao-silver" class="md-nav__link">
     <span class="md-ellipsis">
-      KPIs Desenvolvidas
+      Tabela de conversão silver
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -418,6 +428,26 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../obt.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Camada Gold - One Big table
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -469,20 +499,50 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#consumo-de-dados" class="md-nav__link">
+  <a href="#transformacoes-da-camada-silver" class="md-nav__link">
     <span class="md-ellipsis">
-      Consumo de Dados
+      Transformações da Camada Silver
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transformações da Camada Silver">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transformacao-de-cliente" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transformação de Cliente
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transformação de Cliente">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Código
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#kpis-desenvolvidas" class="md-nav__link">
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tabela-de-conversao-silver" class="md-nav__link">
     <span class="md-ellipsis">
-      KPIs Desenvolvidas
+      Tabela de conversão silver
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -504,26 +564,132 @@
   
 
 
-<h1 id="dashboard-no-power-bi-sobre-seguro-de-imoveis">Dashboard no Power BI sobre Seguro de Imóveis</h1>
-<h2 id="consumo-de-dados">Consumo de Dados</h2>
-<p>O dashboard consome os dados de uma OBT (One Big Table) através de um arquivo parquet adicionado na camada gold do ETL (Extract, Transform, Load) do projeto. Esse arquivo parquet contém os dados consolidados e otimizados para análise no Power BI. A camada gold do ETL é responsável por armazenar os dados de forma estruturada e pronta para serem consumidos pelo dashboard.</p>
-<p>Essa abordagem permite que o dashboard tenha acesso aos dados atualizados e de alta qualidade, garantindo uma visualização precisa e confiável das informações relacionadas a seguros de imóveis.</p>
-<h2 id="kpis-desenvolvidas">KPIs Desenvolvidas</h2>
-<p>Aqui estão as KPIs que foram desenvolvidas para análise dos dados:</p>
-<ul>
-<li>Total de Valor de Sinistros</li>
-<li>Custos Operacionais</li>
-<li>Lucro (Lucro)</li>
-<li>Valor Total das Apólices</li>
-<li>Número de Apólices Vendidas</li>
-<li>Valor Médio de Prêmio</li>
-<li>Número de Sinistros</li>
-<li>Total de Ativos</li>
-<li>Total de Passivos</li>
-<li>Número Total de Imóveis</li>
-</ul>
-<p>Essas KPIs fornecem insights importantes sobre o desempenho e a saúde do negócio de seguros de imóveis.</p>
-<p><img alt="image" src="../assets/dashboard.png" /></p>
+<h1 id="documentacao-da-camada-silver">Documentação da Camada Silver</h1>
+<p>Bem-vindo à documentação da camada Silver. Aqui você encontrará informações sobre as transformações realizadas e a referência da API para as funções de transformação.</p>
+<h2 id="transformacoes-da-camada-silver">Transformações da Camada Silver</h2>
+<p>A camada Silver realiza transformações nos dados brutos da camada Bronze para prepará-los para a camada Gold. As transformações específicas realizadas são detalhadas abaixo.</p>
+<h3 id="transformacao-de-cliente">Transformação de Cliente</h3>
+<p>A transformação de cliente inclui:
+- Manter apenas os 10 últimos números da coluna <code>telefone</code>.
+- Transformar <code>dt_nasc</code> em <code>data_nascimento</code>.
+- Renomear colunas para letras maiúsculas e padronizar prefixos <code>ID_</code> para <code>CODIGO_</code> e <code>DT_</code> para <code>DATA_</code>.
+- Adicionar colunas <code>FILENAME_BRONZE</code> e <code>DATA_INSERT_SILVER</code>.</p>
+<h4 id="codigo">Código</h4>
+<div class="language-text highlight"><pre><span></span><code>```python
+def transformar_cliente():
+df_cliente = spark.read.format(&quot;delta&quot;).load(f&quot;/mnt/{storageAccountName}/bronze/cliente&quot;)
+
+df_cliente = df_cliente.withColumn(&quot;telefone&quot;, regexp_replace(&quot;telefone&quot;, &quot;[^0-9]&quot;, &quot;&quot;))
+df_cliente = df_cliente.withColumn(&quot;telefone&quot;, col(&quot;telefone&quot;).substr(-10, 10))
+df_cliente = df_cliente.withColumnRenamed(&quot;dt_nasc&quot;, &quot;data_nascimento&quot;)
+
+df = renomear_colunas(df_cliente, &quot;cliente&quot;)
+
+salvar_silver(df, &quot;cliente&quot;)
+</code></pre></div>
+<h3 id="tabela-de-conversao-silver">Tabela de conversão silver</h3>
+<table>
+<thead>
+<tr>
+<th>CODIGO_APOLICE</th>
+<th>CODIGO_COBERTURA</th>
+<th>FILENAME_BRONZE</th>
+<th>DATA_INSERT_SILVER</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>5</td>
+<td>apolice_cobertura</td>
+<td>2024-06-27 03:11:...</td>
+</tr>
+<tr>
+<td>1</td>
+<td>10</td>
+<td>apolice_cobertura</td>
+<td>2024-06-27 03:11:...</td>
+</tr>
+<tr>
+<td>1</td>
+<td>6</td>
+<td>apolice_cobertura</td>
+<td>2024-06-27 03:11:...</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>apolice_cobertura</td>
+<td>2024-06-27 03:11:...</td>
+</tr>
+<tr>
+<td>2</td>
+<td>9</td>
+<td>apolice_cobertura</td>
+<td>2024-06-27 03:11:...</td>
+</tr>
+<tr>
+<td>2</td>
+<td>3</td>
+<td>apolice_cobertura</td>
+<td>2024-06-27 03:11:...</td>
+</tr>
+<tr>
+<td>2</td>
+<td>8</td>
+<td>apolice_cobertura</td>
+<td>2024-06-27 03:11:...</td>
+</tr>
+<tr>
+<td>3</td>
+<td>5</td>
+<td>apolice_cobertura</td>
+<td>2024-06-27 03:11:...</td>
+</tr>
+<tr>
+<td>3</td>
+<td>10</td>
+<td>apolice_cobertura</td>
+<td>2024-06-27 03:11:...</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1</td>
+<td>apolice_cobertura</td>
+<td>2024-06-27 03:11:...</td>
+</tr>
+<tr>
+<td>3</td>
+<td>7</td>
+<td>apolice_cobertura</td>
+<td>2024-06-27 03:11:...</td>
+</tr>
+<tr>
+<td>4</td>
+<td>6</td>
+<td>apolice_cobertura</td>
+<td>2024-06-27 03:11:...</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2</td>
+<td>apolice_cobertura</td>
+<td>2024-06-27 03:11:...</td>
+</tr>
+<tr>
+<td>5</td>
+<td>9</td>
+<td>apolice_cobertura</td>
+<td>2024-06-27 03:11:...</td>
+</tr>
+<tr>
+<td>5</td>
+<td>1</td>
+<td>apolice_cobertura</td>
+<td>2024-06-27 03:11:...</td>
+</tr>
+</tbody>
+</table>
 
 
 
