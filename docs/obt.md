@@ -1,4 +1,4 @@
-# Modelo Analítico - Camada Gold
+# Camada Gold - One Big table
 
 ## Estrutura das Tabelas
 

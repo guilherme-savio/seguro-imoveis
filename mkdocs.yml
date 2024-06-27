@@ -6,7 +6,7 @@ nav:
   - Arquitetura Postgres: postgres.md
   - Arquitetura ADLS: adls.md
   - Modelo Relacional: relational.md
-  - Modelo Analítico: obt.md
+  - Camada Gold - One Big table: obt.md
   - ETL: etl.md
   - Autores: contributors.md
 
