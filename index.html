@@ -10,7 +10,7 @@
       
       
       
-        <link rel="next" href="postgres/">
+        <link rel="next" href="arquitetura/">
       
       
       <link rel="icon" href="assets/images/favicon.png">
@@ -297,11 +297,11 @@
         <li class="md-nav__item">
   <a href="#comecando" class="md-nav__link">
     <span class="md-ellipsis">
-      Começando 🚀
+      Começando
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Começando 🚀">
+    <nav class="md-nav" aria-label="Começando">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -351,31 +351,11 @@
   
   
     <li class="md-nav__item">
-      <a href="postgres/" class="md-nav__link">
+      <a href="arquitetura/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Arquitetura Postgres
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="adls/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Arquitetura ADLS
+    Arquitetura de Solução
   </span>
   
 
@@ -411,11 +391,11 @@
   
   
     <li class="md-nav__item">
-      <a href="etl/" class="md-nav__link">
+      <a href="obt/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    ETL
+    Camada Gold - One Big table
   </span>
   
 
@@ -431,11 +411,11 @@
   
   
     <li class="md-nav__item">
-      <a href="airflow/" class="md-nav__link">
+      <a href="etl/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Airflow
+    ETL
   </span>
   
 
@@ -493,11 +473,11 @@
         <li class="md-nav__item">
   <a href="#comecando" class="md-nav__link">
     <span class="md-ellipsis">
-      Começando 🚀
+      Começando
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Começando 🚀">
+    <nav class="md-nav" aria-label="Começando">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -551,15 +531,85 @@
 
 
 <h1 id="introducao">Introdução</h1>
-<p>Esse projeto foi desenvolvido como trabalho final para a disciplina de Engenharia de Dados</p>
-<h2 id="comecando">Começando 🚀</h2>
+<p>Esse projeto foi desenvolvido para a disciplina de Engenharia de Dados, que consta no desenvolvimento completo de uma pipeline de dados para um sistema de seguro de imóveis, partindo da criação de ambientes em cloud utilizando <strong>IaC (Terraform)</strong>, seguindo para os processos de ingestão, transformação e carregamento dos dados utilizando <strong>Azure Databricks</strong> e <strong>Azure Datalake Storage Gen2</strong>. Ao final da pipeline, os dados manipulados são exibidos em um dashboard feito com Power BI.  </p>
+<h2 id="comecando">Começando</h2>
 <p>Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.</p>
 <h3 id="pre-requisitos">Pré-requisitos</h3>
 <hr />
+<ul>
+<li><a href="https://developer.hashicorp.com/terraform/install">Terraform</a></li>
+<li><a href="https://azure.microsoft.com/pt-br/free/databricks">Conta Microsoft/Azure com assinatura paga</a></li>
+<li><a href="https://www.python.org/downloads/">Python</a></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Conta Microsoft/Azure</p>
+<p>Existe a possibilidade de adquirir 14 dias gratuitos dos serviços premium ofertados pela Microsoft/Azure
+Verifique a disponibilidade no site</p>
+</div>
 <h3 id="instalacao">Instalação</h3>
 <hr />
+<ol>
+<li>
+<p>Clone o repositório</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/guilherme-savio/seguro-imoveis.git
+</span></code></pre></div>
+</li>
+<li>
+<p>Com sua conta Microsoft/Azure criada e apta para uso dos recursos pagos, no <a href="https://portal.azure.com/">Portal Azure</a> crie um workspace Azure Databricks seguindo a <a href="https://learn.microsoft.com/en-us/azure/databricks/getting-started/">documentação</a> fornecida pela Microsoft. Durante a execução deste processo, você irá criar um <code>resource group</code>. Salve o nome informado no <code>resource group</code> pois ele será utilizado logo em seguida.</p>
+</li>
+<li>
+<p>Com o Terraform instalado e o resource group em mãos, no arquivo <code>/iac/variables.tf</code> troque a váriavel <code>"resource_group_name"</code> para resource group que você criou previamente.</p>
+</li>
+<li>
+<p>Nesta etapa, iremos iniciar o deploy do nosso ambiente cloud. Após alterar a variável no último passo, acesse a pasta <code>/iac</code> e execute os seguintes comandos:
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>terraform<span class="w"> </span>init
+</span></code></pre></div>
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>terraform<span class="w"> </span>apply
+</span></code></pre></div></p>
+</li>
+<li>
+<p>Com a execução dos comandos finalizada, verifique no <a href="https://portal.azure.com/">Portal Azure</a> o <code>MS SQL Server</code>, <code>MS SQL Database</code> e o <code>ADLS Gen2</code> contendo os containers <code>landing-zone</code>, <code>bronze</code>, <code>silver</code> e <code>gold</code> que foram criados no passo anterior. </p>
+</li>
+<li>
+<p>No <a href="https://portal.azure.com/">Portal Azure</a>, gere um <code>SAS TOKEN</code> para o contêiner <code>landing-zone</code> seguindo esta <a href="https://learn.microsoft.com/en-us/azure/ai-services/translator/document-translation/how-to-guides/create-sas-tokens?tabs=Containers#create-sas-tokens-in-the-azure-portal">documentação</a>. Guarde este token em um local seguro pois ele será utilizado no próximo passo. </p>
+</li>
+<li>
+<p>Na pasta <code>/data</code>, crie um arquivo chamado <code>.env</code> com o mesmo conteúdo disponibilizado no arquivo de exemplo <code>.env.example</code> e preencha as informações necessárias.</p>
+</li>
+<li>
+<p>No mesmo diretório, vamos iniciar o processo de população do nosso banco de dados. Verifique corretamente o preenchimento das váriaveis no arquivo <code>.env</code> e prossiga com os seguintes comandos:</p>
+<ul>
+<li>Criar <code>venv</code> (ambiente virtual) do Python:
+        <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>env
+</span></code></pre></div></li>
+<li>Ativar a <code>venv</code> criada:<ul>
+<li>Linux/MacOS:
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">source</span><span class="w"> </span>env/bin/activate
+</span></code></pre></div></li>
+<li>Windows:
+    <div class="language-pwsh highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">.</span><span class="n">env</span><span class="p">\</span><span class="n">Scripts</span><span class="p">\</span><span class="n">activate</span>
+</span></code></pre></div></li>
+</ul>
+</li>
+<li>Instalar os pacotes necessários:
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</span></code></pre></div></li>
+<li>Executar o script de população:
+    <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python<span class="w"> </span>-B<span class="w"> </span>main.py
+</span></code></pre></div></li>
+</ul>
+</li>
+<li>Acesse o <a href="https://portal.azure.com/"><code>Portal Azure</code></a> e acesse o seu workspace Azure Databricks. Realize o upload dos notebooks encontrados em <a href="https://github.com/guilherme-savio/seguro-imoveis/tree/main/etl"><code>/etl</code></a> para o workspace.</li>
+<li>Por fim, você pode executá-los separadamente ou elaborar um Job para orquestrar às execuções.</li>
+</ol>
 <h2 id="ferramentas-utilizadas">Ferramentas utilizadas</h2>
 <hr />
+<ul>
+<li><a href="https://www.terraform.io/">Terraform</a> - Automação de infraestrutura para provisionar e gerenciar recursos em qualquer nuvem ou data center.</li>
+<li><a href="https://azure.microsoft.com/pt-br/products/databricks">Azure Databricks</a> - Análise e processamento de Big Data</li>
+<li><a href="https://azure.microsoft.com/pt-br/products/azure-sql/database">Azure SQL Server</a> - Sistema de gerenciamento de banco de dados relacional</li>
+<li><a href="https://learn.microsoft.com/pt-br/azure/storage/blobs/data-lake-storage-introduction">Azure Datalake Storage Gen2</a> - Plataforma para armazenar, gerenciar e analisar dados na nuvem</li>
+</ul>
 
 
 
@@ -606,7 +656,7 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["content.code.copy"], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="assets/javascripts/bundle.ad660dcc.min.js"></script>

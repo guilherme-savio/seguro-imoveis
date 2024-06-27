@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../adls/">
+        <link rel="prev" href="../arquitetura/">
       
       
-        <link rel="next" href="../etl/">
+        <link rel="next" href="../obt/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -271,31 +271,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../postgres/" class="md-nav__link">
+      <a href="../arquitetura/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Arquitetura Postgres
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../adls/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Arquitetura ADLS
+    Arquitetura de Solução
   </span>
   
 
@@ -380,11 +360,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../etl/" class="md-nav__link">
+      <a href="../obt/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    ETL
+    Camada Gold - One Big table
   </span>
   
 
@@ -400,11 +380,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../airflow/" class="md-nav__link">
+      <a href="../etl/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Airflow
+    ETL
   </span>
   
 
@@ -501,23 +481,23 @@
 <p><img alt="image" src="../assets/modelo_fisico_relacional.png" /></p>
 <h2 id="insercao-de-dados">Inserção de Dados</h2>
 <p>A partir de um script em Python, são criadas as tabelas e populada toda a cadeia de dados para N clientes.</p>
-<pre><code class="language-python">total_clients = 100
-
-clientes = insert_clientes(session, total_clients)
-log(f&quot;{len(clientes)} clientes inseridos.&quot;)
-
-imoveis = insert_imoveis(session, clientes, tipos_imovel)
-log(f&quot;{len(imoveis)} imóveis inseridos.&quot;)
-
-apolices = insert_avaliacoes_apolices(session, imoveis)
-log(f&quot;{len(apolices)} apólices e avaliações inseridas.&quot;)
-
-sinistros, pagamentos, apolice_coberturas = await insert_sinistros_pagamentos_apolices_coberturas(session, apolices, imoveis, coberturas)
-log(f&quot;{len(sinistros)} sinistros, {len(pagamentos)} pagamentos, {len(apolice_coberturas)} apolice_coberturas inseridos.&quot;)
-
-session.commit()
-log(&quot;Todos registros salvos.&quot;)
-</code></pre>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">total_clients</span> <span class="o">=</span> <span class="mi">100</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">clientes</span> <span class="o">=</span> <span class="n">insert_clientes</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">total_clients</span><span class="p">)</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">clientes</span><span class="p">)</span><span class="si">}</span><span class="s2"> clientes inseridos.&quot;</span><span class="p">)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">imoveis</span> <span class="o">=</span> <span class="n">insert_imoveis</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">clientes</span><span class="p">,</span> <span class="n">tipos_imovel</span><span class="p">)</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">imoveis</span><span class="p">)</span><span class="si">}</span><span class="s2"> imóveis inseridos.&quot;</span><span class="p">)</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">apolices</span> <span class="o">=</span> <span class="n">insert_avaliacoes_apolices</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">imoveis</span><span class="p">)</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">apolices</span><span class="p">)</span><span class="si">}</span><span class="s2"> apólices e avaliações inseridas.&quot;</span><span class="p">)</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">sinistros</span><span class="p">,</span> <span class="n">pagamentos</span><span class="p">,</span> <span class="n">apolice_coberturas</span> <span class="o">=</span> <span class="k">await</span> <span class="n">insert_sinistros_pagamentos_apolices_coberturas</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">apolices</span><span class="p">,</span> <span class="n">imoveis</span><span class="p">,</span> <span class="n">coberturas</span><span class="p">)</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">sinistros</span><span class="p">)</span><span class="si">}</span><span class="s2"> sinistros, </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">pagamentos</span><span class="p">)</span><span class="si">}</span><span class="s2"> pagamentos, </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">apolice_coberturas</span><span class="p">)</span><span class="si">}</span><span class="s2"> apolice_coberturas inseridos.&quot;</span><span class="p">)</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Todos registros salvos.&quot;</span><span class="p">)</span>
+</span></code></pre></div>
 <p>Para cada cliente, podem existir de 1 a 4 imóveis. A partir desses imóveis, obtém-se a mesma quantidade em apólices e avaliações. Após isso, por cada apólice, tem-se a criação de 0 a 4 sinistros, 1 a 10 tipos de coberturas e 1 pagamento por mês desde a data de início da apólice até o dia atual.</p>
 <p>Ao final do processo, a base de dados obteve um total de 337.010 linhas a partir da soma de todas as tabelas.</p>
 <table>
@@ -608,7 +588,7 @@ log(&quot;Todos registros salvos.&quot;)
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="../assets/javascripts/bundle.ad660dcc.min.js"></script>
