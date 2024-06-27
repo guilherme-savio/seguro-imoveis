@@ -1,6 +1,4 @@
-# Estrutura de Dados e Transformação - Camada Gold
-
-Neste exemplo, vamos descrever um ambiente PySpark utilizado para criar e popular uma tabela na camada gold a partir de dados das tabelas na camada silver.
+# Modelo Analítico - Camada Gold
 
 ## Estrutura das Tabelas
 
