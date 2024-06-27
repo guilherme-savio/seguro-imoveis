@@ -31,7 +31,7 @@ Consulte **[Implantação](#-implanta%C3%A7%C3%A3o)** para saber como implantar 
    git clone https://github.com/guilherme-savio/seguro-imoveis.git
    ```
 2. Com sua conta Microsoft/Azure criada e apta para uso dos recursos pagos, no <a href="https://portal.azure.com/">```Portal Azure```</a> crie um workspace Azure Databricks seguindo a <a href="https://learn.microsoft.com/en-us/azure/databricks/getting-started/">```documentação```</a> fornecida pela Microsoft. Durante a execução deste processo, você irá criar um ```resource group```. Salve o nome informado no ```resource group``` pois ele será utilizado logo em seguida.
-3. Com o ```Terraform``` instalado e o ```resource group``` em mãos, no arquivo <a href="https://github.com/guilherme-savio/seguro-imoveis/blob/main/iac/variables.tf">```/iac/variables.tf```</a> modifique a seguinte váriavel adicionando o ```resource group``` que você criou previamente.  
+3. Com o ```Terraform``` instalado e o ```resource group``` em mãos, no arquivo <a href="https://github.com/guilherme-savio/seguro-imoveis/blob/main/iac/variables.tf">```/iac/variables.tf```</a> modifique a seguinte váriavel adicionando o ```resource group``` que você criou previamente.
 
 ![image](https://github.com/guilherme-savio/seguro-imoveis/blob/main/assets/readme/terraform_var.png)
 
