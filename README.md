@@ -12,7 +12,7 @@ Consulte **[Implantação](#-implanta%C3%A7%C3%A3o)** para saber como implantar 
 
 ## Arquitetura Utilizada
 
-![image](https://github.com/guilherme-savio/seguro-imoveis/blob/fix/projeto/assets/pipeline_arch.png)
+![image](https://github.com/guilherme-savio/seguro-imoveis/blob/main/assets/pipeline_arch.png)
 
 
 ## Pré-requisitos
@@ -32,7 +32,9 @@ Consulte **[Implantação](#-implanta%C3%A7%C3%A3o)** para saber como implantar 
    ```
 2. Com sua conta Microsoft/Azure criada e apta para uso dos recursos pagos, no <a href="https://portal.azure.com/">```Portal Azure```</a> crie um workspace Azure Databricks seguindo a <a href="https://learn.microsoft.com/en-us/azure/databricks/getting-started/">```documentação```</a> fornecida pela Microsoft. Durante a execução deste processo, você irá criar um ```resource group```. Salve o nome informado no ```resource group``` pois ele será utilizado logo em seguida.
 3. Com o ```Terraform``` instalado e o ```resource group``` em mãos, no arquivo <a href="https://github.com/guilherme-savio/seguro-imoveis/blob/main/iac/variables.tf">```/iac/variables.tf```</a> modifique a seguinte váriavel adicionando o ```resource group``` que você criou previamente.  
-![image](https://github.com/higorgoulart/bicho.bet/assets/110054084/b18a5c00-94e8-4df7-95ea-d91b9840f35e)
+
+![image](https://github.com/guilherme-savio/seguro-imoveis/blob/main/assets/readme/terraform_var.png)
+
 4. Nesta etapa, iremos iniciar o deploy do nosso ambiente cloud. Após alterar a variável no último passo, acesse a pasta ```/iac``` e execute os seguintes comandos:
    ```bash
    terraform init
@@ -46,7 +48,6 @@ Consulte **[Implantação](#-implanta%C3%A7%C3%A3o)** para saber como implantar 
 6. No <a href="https://portal.azure.com/">```Portal Azure```</a>, gere um ```SAS TOKEN``` para o contâiner ```landing-zone``` seguindo esta <a href="https://learn.microsoft.com/en-us/azure/ai-services/translator/document-translation/how-to-guides/create-sas-tokens?tabs=Containers#create-sas-tokens-in-the-azure-portal">```documentação```</a>. Guarde este token em um local seguro pois ele será utilizado no próximo passo. 
 
 7. Na pasta <a href="https://github.com/guilherme-savio/seguro-imoveis/tree/main/data">```/data```</a>, crie um arquivo chamado ```.env``` com o mesmo conteúdo disponibilizado no arquivo de exemplo <a href="https://github.com/guilherme-savio/seguro-imoveis/tree/main/data">```.env.example```</a> e preencha as informações necessárias.
-![image](https://github.com/higorgoulart/bicho.bet/assets/110054084/b18a5c00-94e8-4df7-95ea-d91b9840f35e)
 
 8. No mesmo diretório, vamos iniciar o processo de população do nosso banco de dados. Verifique corretamente o preenchimento das váriaveis no arquivo ```.env``` e prossiga com os seguintes comandos:
    1. Criar ```venv``` (ambiente virtual) do Python:
