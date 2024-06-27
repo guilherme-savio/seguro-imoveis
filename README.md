@@ -45,7 +45,7 @@ Consulte **[Implantação](#-implanta%C3%A7%C3%A3o)** para saber como implantar 
    ```
 5. Com a execução dos comandos finalizada, verifique no <a href="https://portal.azure.com/">```Portal Azure```</a> o ```MS SQL Server```, ```MS SQL Database``` e o ```ADLS Gen2``` contendo os containers ```landing-zone```, ```bronze```, ```silver``` e ```gold``` que foram criados no passo anterior. 
 
-6. No <a href="https://portal.azure.com/">```Portal Azure```</a>, gere um ```SAS TOKEN``` para o contâiner ```landing-zone``` seguindo esta <a href="https://learn.microsoft.com/en-us/azure/ai-services/translator/document-translation/how-to-guides/create-sas-tokens?tabs=Containers#create-sas-tokens-in-the-azure-portal">```documentação```</a>. Guarde este token em um local seguro pois ele será utilizado no próximo passo. 
+6. No <a href="https://portal.azure.com/">```Portal Azure```</a>, gere um ```SAS TOKEN``` para o contêiner ```landing-zone``` seguindo esta <a href="https://learn.microsoft.com/en-us/azure/ai-services/translator/document-translation/how-to-guides/create-sas-tokens?tabs=Containers#create-sas-tokens-in-the-azure-portal">```documentação```</a>. Guarde este token em um local seguro pois ele será utilizado no próximo passo. 
 
 7. Na pasta <a href="https://github.com/guilherme-savio/seguro-imoveis/tree/main/data">```/data```</a>, crie um arquivo chamado ```.env``` com o mesmo conteúdo disponibilizado no arquivo de exemplo <a href="https://github.com/guilherme-savio/seguro-imoveis/tree/main/data">```.env.example```</a> e preencha as informações necessárias.
 
