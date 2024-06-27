@@ -3,11 +3,9 @@ repo_url: https://github.com/guilherme-savio/seguro-imoveis
 
 nav:
   - Home: index.md
-  - Arquitetura Postgres: postgres.md
-  - Arquitetura ADLS: adls.md
+  - Arquitetura de Solução: arquitetura.md
   - Modelo Relacional: relational.md
   - ETL: etl.md
-  - Airflow: airflow.md
   - Autores: contributors.md
 
 theme:
