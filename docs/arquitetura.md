@@ -2,7 +2,7 @@
 
 A pipeline é construída em cima do core de ferramentas de análise de dados e engenharia de dados da Azure. Por estar centralizada em apenas um ambiente cloud, todo o processo de deploy, armazenamento, orquestramento do fluxo de processamento dos dados e custos se torna simples de ser feito, sendo esse um ponto chave para a utilização.
 
-![image](/assets/pipeline_arch.png)
+![image](assets\pipeline_arch.png)
 
 O processo conta com os seguintes componentes:
 
