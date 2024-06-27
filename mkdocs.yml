@@ -3,12 +3,23 @@ repo_url: https://github.com/guilherme-savio/seguro-imoveis
 
 nav:
   - Home: index.md
-  - Arquitetura Postgres: postgres.md
-  - Arquitetura ADLS: adls.md
+  - Arquitetura de Solução: arquitetura.md
   - Modelo Relacional: relational.md
   - Camada Gold - One Big table: obt.md
   - ETL: etl.md
   - Autores: contributors.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.details
+  - admonition
+
 
 theme:
   name: material
@@ -16,6 +27,8 @@ theme:
   icon:
     logo: fontawesome/solid/house-lock
     favicon: fontawesome/solid/house-lock
+  features:
+  - content.code.copy
 
 
   palette:
