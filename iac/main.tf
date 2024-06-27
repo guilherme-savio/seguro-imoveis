@@ -1,6 +1,6 @@
 # Create an ADLS Gen2 and containers for landing, bronze, silver, and gold zones
 resource "azurerm_storage_account" "storage" {
-  name                     = "seguroimoveisdatalake"
+  name                     = "satcseguroimoveis"
   resource_group_name      = var.resource_group_name
   location                 = var.resource_group_location
   account_tier             = "Standard"
@@ -33,36 +33,35 @@ resource "azurerm_storage_container" "gold" {
   container_access_type = "private"
 }
 
-
 # Create an Azure SQL Server and database
-resource "azurerm_mssql_server" "sql_server" {
-  name                         = "seguroimoveis-sql"
+resource "azurerm_mssql_server" "sql" {
+  name                         = "satcseguroimoveissqlserver"
   resource_group_name          = var.resource_group_name
   location                     = var.resource_group_location
   version                      = "12.0"
-  administrator_login          = "adminuser"
-  administrator_login_password = var.sql_server_admin_password
+  administrator_login          = var.mssql_admin
+  administrator_login_password = var.password
 }
 
-resource "azurerm_mssql_database" "database" {
-  name                        = "seguroimoveis"
-  server_id                   = azurerm_mssql_server.sql_server.id
+resource "azurerm_mssql_database" "sql" {
+  name                        = "satcseguroimoveisdatabase"
+  server_id                   = azurerm_mssql_server.sql.id
   collation                   = "SQL_Latin1_General_CP1_CI_AS"
-  max_size_gb                 = 64
-  read_scale                  = false
-  zone_redundant              = false
   auto_pause_delay_in_minutes = -1
-  min_capacity                = 10
+  max_size_gb                 = 2
   read_replica_count          = 0
-  sku_name                    = "GP_S_Gen5_10"
+  read_scale                  = false
+  sku_name                    = "Basic"
+  zone_redundant              = false
   geo_backup_enabled          = false
 }
 
 # Create a firewall rule to allow all IP addresses
 resource "azurerm_mssql_firewall_rule" "firewall_rule" {
   name             = "allow-all-ip"
-  server_id        = azurerm_mssql_server.sql_server.id
+  server_id        = azurerm_mssql_server.sql.id
   start_ip_address = "0.0.0.0"
   end_ip_address   = "255.255.255.255"
 }
+
 
