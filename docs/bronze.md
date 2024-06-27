@@ -27,17 +27,15 @@ O processo de ingestão de dados envolve os seguintes passos:
 3. **Gravação dos Dados:** Os dados são gravados na camada Bronze no formato Delta.
 
 ### Código de Exemplo
-    Abaixo está o código PySpark utilizado para ler os dados da landing-zone, adicionar metadados e gravá-los na camada Bronze.
+Abaixo está o código PySpark utilizado para ler os dados da landing-zone, adicionar metadados e gravá-los na camada Bronze.
 
-    ```python
-    from pyspark.sql.functions import current_timestamp, lit
-
-    storageAccountName = "satcseguroimoveis"
-    tables = ["apolice_cobertura", "cobertura", "sinistro", "pagamento", "apolice", "avaliacao", "imovel", "cliente"]
-
-    for table in tables:
-        remote_table = spark.read.option("inferschema", "true").option("header", "true").parquet(f"/mnt/{storageAccountName}/landing-zone/{table}")
-        remote_table = remote_table.withColumn("dt_insert_bronze", current_timestamp()).withColumn("filename", lit(table))
-        remote_table.write.format('delta').save(f"/mnt/{storageAccountName}/bronze/{table}")
-        
+```python
+from pyspark.sql.functions import current_timestamp, lit
+storageAccountName = "satcseguroimoveis"
+tables = ["apolice_cobertura", "cobertura", "sinistro", "pagamento", "apolice", "avaliacao", "imovel", "cliente"]
+for table in tables:
+    remote_table = spark.read.option("inferschema", "true").option("header", "true").parquet(f"/mnt/{storageAccountName}/landing-zone/{table}")
+    remote_table = remote_table.withColumn("dt_insert_bronze", current_timestamp()).withColumn("filename", lit(table))
+    remote_table.write.format('delta').save(f"/mnt/{storageAccountName}/bronze/{table}")
+```
 

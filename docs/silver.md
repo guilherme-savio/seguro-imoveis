@@ -16,17 +16,16 @@ A transformação de cliente inclui:
 
 #### Código
 
-    ```python
-    def transformar_cliente():
+```python
+def transformar_cliente():
     df_cliente = spark.read.format("delta").load(f"/mnt/{storageAccountName}/bronze/cliente")
-
     df_cliente = df_cliente.withColumn("telefone", regexp_replace("telefone", "[^0-9]", ""))
     df_cliente = df_cliente.withColumn("telefone", col("telefone").substr(-10, 10))
     df_cliente = df_cliente.withColumnRenamed("dt_nasc", "data_nascimento")
-
     df = renomear_colunas(df_cliente, "cliente")
 
     salvar_silver(df, "cliente")
+```
 
 ### Tabela de conversão silver
 | CODIGO_APOLICE | CODIGO_COBERTURA | FILENAME_BRONZE  | DATA_INSERT_SILVER      |
