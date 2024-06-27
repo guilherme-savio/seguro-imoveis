@@ -10,18 +10,16 @@ Essa abordagem permite que o dashboard tenha acesso aos dados atualizados e de a
 
 Aqui estão as KPIs que foram desenvolvidas para análise dos dados:
 
-- Prêmio Total Coletado (PremioTotalColetado)
-- Total de Sinistros Pagos (TotalSinistrosPagos)
-- Custos Operacionais (CustosOperacionais)
+- Total de Valor de Sinistros
+- Custos Operacionais
 - Lucro (Lucro)
-- Total de Valor de Sinistro (TotalValueOfClaims)
-- Valor Total das Apólices (TotalValueOfPolicies)
-- Número de Apólices Vendidas (NumberOfPoliciesSold)
-- Valor Médio de Prêmio (AveragePremiumValue)
-- Número de Sinistros (NumberOfClaims)
-- Total de Ativos (TotalAssetsValue)
-- Total de Passivos (TotalLiabilitiesValue)
-- Número Total de Imóveis (NumberOfProperties)
+- Valor Total das Apólices
+- Número de Apólices Vendidas
+- Valor Médio de Prêmio
+- Número de Sinistros
+- Total de Ativos
+- Total de Passivos
+- Número Total de Imóveis
 
 Essas KPIs fornecem insights importantes sobre o desempenho e a saúde do negócio de seguros de imóveis.
 
