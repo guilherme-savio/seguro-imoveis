@@ -7,6 +7,9 @@ import random
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.engine import URL
+from dotenv import load_dotenv
+
+load_dotenv()
 
 fake = Faker('pt_BR')
 today = date.today()
@@ -40,7 +43,7 @@ def insert_imoveis(session, clientes, tipos_imovel):
         for _ in range(randint_min(1, 4)):
             valor_random = random.random()
             valor_imovel = valor_random * 1000000
-            ano_construcao = int(fake.date_between(date(2010, 1, 1), today).year)
+            ano_construcao = int(fake.date_between(date(2021, 1, 1), today).year)
 
             imoveis.append(Imovel(
                 id_proprietario=cliente.id_cliente,
@@ -190,11 +193,16 @@ async def main():
     ]
 
     session = Session()
-    session.add_all(coberturas)
+
+    for cobertura in coberturas:
+        existing_cobertura = session.query(Cobertura).filter_by(descricao=cobertura.descricao).first()
+        if not existing_cobertura:
+            session.add(cobertura)
+
     session.commit()
     log(f"Coberturas inseridas.")
 
-    total_clients = 1000
+    total_clients = 100
 
     clientes = insert_clientes(session, total_clients)
     log(f"{len(clientes)} clientes inseridos.")

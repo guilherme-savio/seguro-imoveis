@@ -3,9 +3,14 @@ variable "resource_group_location" {
 }
 
 variable "resource_group_name" {
-  default = "learn-b1703e83-1efc-4771-8824-5e73481b5554"
+  default = "seguroimoveisdatabricks"
 }
 
-variable "sql_server_admin_password" {
+variable "password" {
   default = "Password12345!"
+}
+
+
+variable "mssql_admin" {
+  default = "adminuser"
 }

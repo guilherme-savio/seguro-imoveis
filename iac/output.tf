@@ -27,18 +27,3 @@ output "adls_container_gold" {
   description = "Name of the created storage container gold"
   value       = azurerm_storage_container.gold.name
 }
-
-output "sql_server" {
-  description = "Name of the created SQL Server"
-  value       = azurerm_mssql_server.sql_server.name
-}
-
-output "sql_database" {
-  description = "Name of the created SQL Database"
-  value       = azurerm_mssql_database.database.name
-}
-
-output "username" {
-  description = "Admin username of the SQL Server"
-  value       = azurerm_mssql_server.sql_server.administrator_login
-}
